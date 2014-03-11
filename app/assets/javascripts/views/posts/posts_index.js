@@ -23,7 +23,7 @@ Journal.Views.PostsIndex = Backbone.View.extend({
     var id = $(event.currentTarget).data('id');
     var post = this.collection.get(id);
     post.destroy();
-
+    Backbone.history.navigate("", {trigger: true});
   }
 
 });

@@ -1,6 +1,7 @@
 Journal.Routers.Posts = Backbone.Router.extend({
   routes: {
     "": "postsIndex",
+    "posts/new": "postsNew",
     "posts/:id": "postsShow",
     "posts/:id/edit": "postsEdit"
   },
@@ -11,7 +12,7 @@ Journal.Routers.Posts = Backbone.Router.extend({
     });
 
     Journal.Collections.posts.fetch();
-    $("body").html(postIndex.render().$el);
+    $("div#sidebar").html(postIndex.render().$el);
   },
 
   postsShow: function(id) {
@@ -22,17 +23,28 @@ Journal.Routers.Posts = Backbone.Router.extend({
       model: post
     });
 
-    $("body").html(postShow.render().$el);
+    $("div#content").html(postShow.render().$el);
   },
 
   postsEdit: function(id) {
     var post = Journal.Collections.posts.get(id);
 
-    var postEdit = new Journal.Views.PostEdit({
+    var postEdit = new Journal.Views.PostForm({
       model: post
     });
 
-    $("body").html(postEdit.render().$el);
+    $("div#content").html(postEdit.render().$el);
+  },
+
+  postsNew: function() {
+    var post = new Journal.Models.Post();
+
+    var postNew = new Journal.Views.PostForm({
+      model: post,
+      collection: Journal.Collections.posts
+    });
+
+    $("div#content").html(postNew.render().$el);
   }
 
 });
