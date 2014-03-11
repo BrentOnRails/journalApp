@@ -4,3 +4,5 @@ Journal.Collections.Posts = Backbone.Collection.extend({
   url: '/posts'
 
 });
+
+Journal.Collections.posts = new Journal.Collections.Posts();
